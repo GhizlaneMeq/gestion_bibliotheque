@@ -22,6 +22,14 @@ class AuthController
         $page = '../../views/auth/register.php';
         include_once '../../views/layout.php';
     }
+    public function redirectAdmin()
+    {
+        $userDao = new UserDao;
+        $users = $userDao->getUsers();
+        $page = '../../views/admin/index.php';
+        include_once '../../views/layout.php';
+
+    }
     public function register()
     {
         $error ='' /* $this->validateRegister($firstname, $lastname, $email, $phone, $password, $confirmPassword) */;
@@ -57,8 +65,26 @@ class AuthController
         if ($exist) {
             if (password_verify($_POST['password'], $exist->getPassword())) {
                 $exist->getEmail();
-                header('location:home');
-                exit();
+                switch($exist->getRole()){
+                    case 1:
+                        $_SESSION['isAdmin'] = true;
+                        header('location:dashboard');
+                        break;
+                    case 2:
+                        echo 'moderator';
+                       // header('location:../../views/moderator/home.php');
+                        break;
+    
+                    case 3:
+                        $_SESSION['isAdmin'] = false;
+                        echo 'welcome '.$exist->getFirstname();
+
+                        break;
+    
+                    default:
+                    echo 'undefined user role';
+                    break;
+                }
             } else {
                 $_SESSION['error'] = 'Incorrect password';
             }

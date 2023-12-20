@@ -15,6 +15,7 @@ $router->setRoutes([
     'GET' => [
         '' => ['HomeController', 'index'],
         'home' => ['HomeController', 'index'],
+        'dashboard' => ['authController', 'redirectAdmin'],
         'login' => ['AuthController', 'redirectLogin'],
         'register' => ['AuthController', 'redirectRegister'],
 

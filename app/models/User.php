@@ -11,13 +11,15 @@ class User
     private $firstname;
     private $lastname;
     private $phone;
-    public function __construct($firstname, $lastname, $email, $phone, $password)
+    private $role;
+    public function __construct($firstname, $lastname, $email, $phone, $password,$role)
     {
         $this->firstname =$firstname;
         $this->lastname =$lastname;
         $this->email =$email;
         $this->phone =$phone;
         $this->password =$password;
+        $this->role =$role;
     }
 
     public function getEmail()
@@ -60,6 +62,14 @@ class User
     public function setPassword($password)
     {
         return $this->password=$password;
+    }
+    public function getRole()
+    {
+        return $this->role;
+    }
+    public function setRole($role)
+    {
+        return $this->role=$role;
     }
 
 
