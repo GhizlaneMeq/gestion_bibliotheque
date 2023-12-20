@@ -4,6 +4,9 @@ require __DIR__ . '/../../vendor/autoload.php';
 $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
 
+use PDO;
+use PDOException;
+
 class Database
 {
     private static $instance;
@@ -14,7 +17,6 @@ class Database
     private $conn;
     private $error;
 
-
     public function __construct()
     {
         $this->serverName = $_ENV["DB_SERVERNAME"];
@@ -24,15 +26,17 @@ class Database
         $this->DbConnect();
     }
 
-    public function DbConnect(){
-
-        $this->conn = mysqli_connect($this->serverName, $this->userName, $this->password, $this->dbname);
-
-        if (!$this->conn) {
-            $this->error = "Database connectain failed";
+    public function DbConnect()
+    {
+        try {
+            $this->conn = new PDO("mysql:host=$this->serverName;dbname=$this->dbname", $this->userName, $this->password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            $this->error = "Database connection failed: " . $e->getMessage();
             return false;
         }
     }
+
     public static function getInstance()
     {
         if (self::$instance === null) {
@@ -40,13 +44,15 @@ class Database
         }
         return self::$instance;
     }
-    public function getConnection() {
+
+    public function getConnection()
+    {
         return $this->conn;
     }
 }
-$database = Database::getInstance();
+
+/* $database= Database::getInstance();
 if ($database->getConnection()){
-    echo'good';
+    echo 'good';
 }
-
-
+else echo 'no'; */

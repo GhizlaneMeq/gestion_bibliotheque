@@ -1,0 +1,3 @@
+RewriteEngine On
+DirectoryIndex app/controllers/RouteHandler.php
+RewriteRule ^(.*)$ app/controllers/RouteHandler.php?url=$1 [QSA,L]
