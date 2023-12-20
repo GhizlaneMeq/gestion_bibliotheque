@@ -24,12 +24,17 @@ class AuthController
     }
     public function redirectAdmin()
     {
-        $userDao = new UserDao;
-        $users = $userDao->getUsers();
         $page = '../../views/admin/index.php';
         include_once '../../views/layout.php';
 
     }
+    public function redirectAdminToUser(){
+        $userDao = new UserDao;
+        $users = $userDao->getUsers();
+        $page = '../../views/admin/users/display.php';
+        include_once '../../views/layout.php';
+    }
+
     public function register()
     {
         $error ='' /* $this->validateRegister($firstname, $lastname, $email, $phone, $password, $confirmPassword) */;
@@ -98,7 +103,7 @@ class AuthController
     public function logout()
     {
         session_destroy();
-        header("location: ../../views/auth/login.php");
+        header("location: login");
         exit();
     }
 

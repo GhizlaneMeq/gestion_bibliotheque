@@ -18,7 +18,9 @@ $router->setRoutes([
         'dashboard' => ['authController', 'redirectAdmin'],
         'login' => ['AuthController', 'redirectLogin'],
         'register' => ['AuthController', 'redirectRegister'],
-
+        'logout' => ['AuthController', 'logout'],
+        'displayUsers'=>['AuthController', 'redirectAdminToUser'],
+        'dispalyBooks'=>['BookController','redirectAdminToBook'],
     ],
     'POST' => [
         'submitRegister' => ['AuthController', 'register'],
