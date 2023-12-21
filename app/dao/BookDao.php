@@ -14,6 +14,15 @@ class BookDao{
     public function create(){
 
     }
+    public function redirectToReservation(){
+
+    }
+    public function GetBookById($id){
+        $query=$this->database->getConnection()->query("SELECT * FROM `books` WHERE id=$id");
+        $bookData=$query->fetch(PDO::FETCH_OBJ);
+        $book=new Book($bookData->id,$bookData->title,$bookData->author,$bookData->genre,$bookData->description,$bookData->publication_year,$bookData->total_copies,$bookData->available_copies);
+        return $book;
+    }
     public function getBooks()
     {
         $query = $this->database->getConnection()->query("SELECT * FROM `books`");
@@ -24,7 +33,7 @@ class BookDao{
             return 'njbjbhbvhbhh';
         }else{
         foreach ($booksData as $bookData) {
-            $books[] = new Book($bookData['title'],$bookData['author'],$bookData['genre'],$bookData['description'],$bookData['publication_year'],$bookData['total_copies'],$bookData['available_copies']);
+            $books[] = new Book($bookData['id'],$bookData['title'],$bookData['author'],$bookData['genre'],$bookData['description'],$bookData['publication_year'],$bookData['total_copies'],$bookData['available_copies']);
            
         }
 

@@ -21,6 +21,7 @@ $router->setRoutes([
         'logout' => ['AuthController', 'logout'],
         'displayUsers'=>['AuthController', 'redirectAdminToUser'],
         'dispalyBooks'=>['BookController','redirectAdminToBook'],
+        'reservation'=>['BookController','getBookById'],
     ],
     'POST' => [
         'submitRegister' => ['AuthController', 'register'],

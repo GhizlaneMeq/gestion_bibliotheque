@@ -10,6 +10,13 @@ class BookController{
         $page = '../../views/admin/Books/display.php';
         include_once '../../views/layout.php';
     }
+    
+    public function getBookById(){
+        $bookDao = new BookDao();
+        $book = $bookDao->getBookById(isset($_GET['id'])?$_GET['id']:'');
+        $page = '../../views/client/reservation.php';
+        include_once '../../views/layout.php';
+    }
 }
 
 

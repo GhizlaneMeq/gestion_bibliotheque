@@ -1,17 +1,18 @@
 <?php
 namespace App\controllers;
 
-use App\dao\UserDao;
+
+use App\dao\BookDao;
 
 class HomeController
 {
     public function index()
     {
-        $userDao = new UserDao;
-        $users = $userDao->getUsers();
+        $BookDao = new BookDao;
+        $books = $BookDao->getBooks();
 
-        $page = '../../views/index.php';
-        include_once '../../views/layout.php';
+        $page = __DIR__.'/../../views/index.php';
+        include_once __DIR__.'/../../views/layout.php';
     }
 
 }
