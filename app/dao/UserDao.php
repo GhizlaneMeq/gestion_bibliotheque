@@ -57,7 +57,7 @@ class UserDao
         $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($userData) {
-            return new User($userData['firstname'], $userData['lastname'], $email, $userData['phone'], $userData['password'], $userData['role_id']);
+            return new User($userData['id'], $userData['firstname'], $userData['lastname'], $email, $userData['phone'], $userData['password'], $userData['role_id']);
         } else {
             echo 'doesnt';
             return null;
@@ -78,10 +78,23 @@ class UserDao
             echo 'rachid';
         } else {
             foreach ($userData as $userRow) {
-                $users[] = new User($userRow['firstname'], $userRow['lastname'], $userRow['email'], $userRow['phone'], $userRow['password'],$userRow['role_id']);
+                $users[] = new User($userRow['id'], $userRow['firstname'], $userRow['lastname'], $userRow['email'], $userRow['phone'], $userRow['password'], $userRow['role_id']);
             }
         }
 
+        return $users;
+    }
+    public function getMostActiveUsers()
+    {
+        $query = "SELECT users.firstname, users.lastname, COUNT(reservations.id) AS reservation_count
+              FROM users
+              JOIN reservations ON users.id = reservations.user_id
+              GROUP BY users.id
+              ORDER BY reservation_count DESC
+              LIMIT 3";
+
+        $stmt = $this->database->getConnection()->query($query);
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $users;
     }
 }

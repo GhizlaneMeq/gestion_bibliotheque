@@ -21,11 +21,16 @@ $router->setRoutes([
         'logout' => ['AuthController', 'logout'],
         'displayUsers'=>['AuthController', 'redirectAdminToUser'],
         'dispalyBooks'=>['BookController','redirectAdminToBook'],
+        'dispalyReservations'=>['BookController','redirectAdminToBook'],
         'reservation'=>['BookController','getBookById'],
+        'search'=>['BookController','searchBook'],
+        'filter'=>['BookController','redirectFilter'],
     ],
     'POST' => [
         'submitRegister' => ['AuthController', 'register'],
         'submitLogin' => ['AuthController', 'login'],
+        'reserver'=>['BookController','reserveBook'],
+
 
     ],
 ]);

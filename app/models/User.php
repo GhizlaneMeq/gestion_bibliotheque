@@ -6,14 +6,16 @@ require __DIR__ . '/../../vendor/autoload.php';
 class User
 {
 
+    private $id;
     private $email;
     private $password;
     private $firstname;
     private $lastname;
     private $phone;
     private $role;
-    public function __construct($firstname, $lastname, $email, $phone, $password,$role)
+    public function __construct($id='',$firstname, $lastname, $email, $phone, $password,$role)
     {
+        $this->id =$id;
         $this->firstname =$firstname;
         $this->lastname =$lastname;
         $this->email =$email;
@@ -22,6 +24,14 @@ class User
         $this->role =$role;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function setId($id)
+    {
+        return $this->id=$id;
+    }
     public function getEmail()
     {
         return $this->email;
