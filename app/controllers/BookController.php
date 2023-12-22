@@ -5,6 +5,7 @@ namespace App\controllers;
 require __DIR__ . '/../../vendor/autoload.php';
 
 use App\dao\BookDao;
+use App\dao\ReservationDao;
 
 class BookController
 {
@@ -41,9 +42,10 @@ class BookController
     }
     public function reserveBook()
     {
-        $bookDao = new BookDao();
-        $book = $bookDao->reserveBook(isset($_POST['id']) ? $_POST['id'] : '');
-        $bookDao->UpdateBookAvailableCopies(isset($_POST['id']) ? $_POST['id'] : '');
+        $book= new BookDao;
+        $reserveDao = new ReservationDao();
+        $reserve = $reserveDao->create(isset($_POST['id']) ? $_POST['id'] : '');
+        $book->UpdateBookAvailableCopies(isset($_POST['id']) ? $_POST['id'] : '');
         header('location:home');
     }
 }

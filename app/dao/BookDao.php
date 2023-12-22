@@ -46,19 +46,7 @@ class BookDao
         return $books;
     }
 
-    public function reserveBook($id)
-    {
-        $userId = $_SESSION['userId'];
-        $reservationDate = date("Y-m-d");
-        $returnDate = date("Y-m-d", strtotime($reservationDate . "+15 days"));
-
-        $reservationDateString = $this->database->getConnection()->quote($reservationDate);
-        $returnDateString = $this->database->getConnection()->quote($returnDate);
-
-        $query = $this->database->getConnection()->query("INSERT INTO `reservations` 
-        (`reservation_date`, `return_date`, `book_id`, `user_id`)
-         VALUES ($reservationDateString, $returnDateString, $id, $userId)");
-    }
+   
 
     public function GetBookById($id)
     {
